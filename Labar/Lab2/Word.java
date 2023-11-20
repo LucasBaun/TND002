@@ -1,6 +1,7 @@
 package lab2;
 
 public class Word {
+	
 	public static final int ORIGINAL = 0; 
 	public static final int BYNAME = 1; 
 	public static final int BYCOUNTS = 2;
@@ -8,6 +9,7 @@ public class Word {
 	private String theWord;
 	private int count;
 	private static int sortCriterion = ORIGINAL;
+	
 	
 	public Word(String arg1, int arg2) {
 		theWord = arg1;
@@ -37,15 +39,21 @@ public class Word {
 		return result;
 	}
 	
-	public int compareTo(Word arg) {
-		int result = 0;
-		
+	public int compareTo(Word arg) {	
+		int result = 0;		
 		if(sortCriterion == ORIGINAL) {
 			result = 2;
-		}
-		
+		}		
 		else if (sortCriterion == BYNAME) {
-			result = theWord.compareTo(arg.theWord);		
+			if (theWord.compareTo(arg.theWord) > 0) {
+				result = 1;
+			}
+			else if (theWord.compareTo(arg.theWord) == 0) {
+				result = 0;
+			}
+			else {
+				result = -1;
+			}					
 		}
 		
 		else if (sortCriterion == BYCOUNTS) {
@@ -61,5 +69,6 @@ public class Word {
 		}		
 		return result;
 	}
+	
 
 }
