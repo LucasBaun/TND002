@@ -32,9 +32,8 @@ public class Lab2 {
 			inResult += input + " ";			
 
 		}
-		
-		String arrayWords[] = inResult.split(" +");
-		String temp = "";
+		bread.close();
+		String arrayWords[] = inResult.split(" +");		
 		for (int pass = 0; pass < arrayWords.length; ++pass) {
 			try {
 				double error = Double.parseDouble(arrayWords[pass]);
