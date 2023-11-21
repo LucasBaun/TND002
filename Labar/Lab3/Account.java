@@ -20,10 +20,13 @@ public class Account {
 	}
 	
 	public Account(String arg1, double arg2, double arg3) {
-		customer = arg1;
-		balance = arg3;
+		//customer = arg1;
+		//balance = arg3;
 		
-		//Lite mer saker ska in här men fattar ej vad.
+		SavingAccount account_2 = new SavingAccount(arg1, arg3);
+		otherAccount = account_2;
+		thisAccountNumber = accountNumber;
+		accountNumber +=1;
 	}
 	
 	public int getAccountNumber() {
