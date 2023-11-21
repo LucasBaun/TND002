@@ -22,15 +22,15 @@ public class Account {
 	public Account(String arg1, double arg2, double arg3) {
 		customer = arg1;
 		balance = arg2;
-		
-		SavingAccount account_2 = new SavingAccount(arg1, arg3);
-		otherAccount = account_2;
 		thisAccountNumber = accountNumber;
 		accountNumber +=1;
+		SavingAccount account_2 = new SavingAccount(arg1, arg3);
+		otherAccount = account_2;
+		otherAccount.otherAccount = this;
 	}
 	
 	public int getAccountNumber() {
-		return accountNumber;
+		return thisAccountNumber;
 	}
 	
 	public String getCustomer() {
@@ -61,13 +61,13 @@ public class Account {
 	public String toString() {
 		String output = "";
 		if (this instanceof SavingAccount) {
-			output = "Savings Account with account number " + getAccountNumber() + ": " + getBalance();
+			output = "Savings Account with account number " + getAccountNumber() + ": " + getBalance() + "\n";
 		} else if (this instanceof CurrentAccount) {
-			output = "Current Account with account number " + getAccountNumber() + ": " + getBalance();
+			output = "Current Account with account number " + getAccountNumber() + ": " + getBalance() + "\n";
 		}
 		
 		for (int pass = 0; pass < transactions.size(); pass++) {
-			output = output + "\n" + transactions.get(pass) + "\n";
+			output = output + transactions.get(pass) + "\n";
 		}
 		
 		return output;
