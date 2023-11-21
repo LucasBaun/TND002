@@ -20,8 +20,8 @@ public class Account {
 	}
 	
 	public Account(String arg1, double arg2, double arg3) {
-		//customer = arg1;
-		//balance = arg3;
+		customer = arg1;
+		balance = arg2;
 		
 		SavingAccount account_2 = new SavingAccount(arg1, arg3);
 		otherAccount = account_2;
@@ -50,17 +50,27 @@ public class Account {
 	}
 	
 	public SavingAccount getSavingsAccount() {
-		if(true) {
-			/*
-			getSavingsAccount() returns otherAccount if that is a savings account. 
-			It returns null if otherAccount is a current account.
-
-			 */
+		if(otherAccount instanceof SavingAccount) {
+			return (SavingAccount) otherAccount;
+		}
+		else {
+			return null;
 		}
 	} 
 	
 	public String toString() {
 		String output = "";
+		if (this instanceof SavingAccount) {
+			output = "Savings Account with account number " + getAccountNumber() + ": " + getBalance();
+		} else if (this instanceof CurrentAccount) {
+			output = "Current Account with account number " + getAccountNumber() + ": " + getBalance();
+		}
+		
+		for (int pass = 0; pass < transactions.size(); pass++) {
+			output = output + "\n" + transactions.get(pass) + "\n";
+		}
+		
+		return output;
 		
 	}
 		

@@ -1,10 +1,9 @@
 package lab3;
 
-public class CurrentAccount {
+public class CurrentAccount extends Account {
 
 	public CurrentAccount(String arg1, double arg2) {
-		String customer = arg1;
-		double balance = arg2;
+		super (arg1, arg2);
 		otherAccount = null;
 		
 		

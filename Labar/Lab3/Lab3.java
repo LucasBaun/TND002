@@ -4,7 +4,7 @@ public class Lab3 {
 
 	public static void main(String[] args) {
 		
-		Bank theBank = new Bank("Great Northern Bank");
+//		Bank theBank = new Bank("Great Northern Bank");
 		
 		System.out.println("Testing createAccount");
 		System.out.println(theBank.createAccount("Peter", 1000.0, 2000.0));
