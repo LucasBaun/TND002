@@ -73,7 +73,7 @@ public class Account {
 		} else {
 			balance -= 10;
 			if (balance < 0) {
-				theBank.getLoan((CurrentAccount) this);
+				theBank.getLoan((CurrentAccount) this); //Antar att getLoan kommer senare?
 				balance = 0;
 			}
 		}

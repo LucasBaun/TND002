@@ -3,6 +3,7 @@ import java.util.*;
 public class Bank {
 	public final String NAME;
 	private ArrayList<Account> theAccounts = new ArrayList<Account>();
+	private ArrayList<Loan> theLoans = new ArrayList<Loan>();
 	
 	
 	public Bank (String arg){
@@ -58,13 +59,29 @@ public class Bank {
 			}
 			return result;
 		}	
-		return "Person does not exist";  		
+		return "Person does not exist";  
+		/*
+		  	checkPerson(String) should now also list the loans. It should start the line with
+			”Loan: ” followed by the value of balance.
+		 */
+	}	
+	
+	
+	public void transfer(String arg1, String arg2, double arg3) {
+		CurrentAccount customer1 = searchAccount(arg1);
+		CurrentAccount customer2 = searchAccount(arg2);
+		
+		if(customer1 != null && customer2 != null) {
+			customer1.send(arg3, customer2);
+		}	
 	}
+	
 	
 	public String toString () {
 		double current = 0;
 		double saving = 0;
-		
+		double loan = 0;
+
 		for (int pass = 0; pass < theAccounts.size(); ++pass) {
 			if(theAccounts.get(pass) instanceof CurrentAccount) {
 				current += theAccounts.get(pass).getBalance();
@@ -76,9 +93,13 @@ public class Bank {
 			
 		}
 		
+		for (int i = 0; i < theLoans.size(); ++i) {
+			loan = loan + theLoans.get(i).getBalance();
+		}
 		
-		return "Bank:" + NAME + "\n" + "Accounts: " + theAccounts.size() + " Money in current / savings accounts: "
-				+ current + " / " + saving;
+		
+		return "Bank:" + NAME + "\n" + "Accounts: " + theAccounts.size() + " Money in current / savings accounts and dept: "
+				+ current + " / " + saving + "/" + loan;
 		
 	}
 
