@@ -92,7 +92,7 @@ public class Account {
 		} else if (this instanceof CurrentAccount) {
 			output = "Current Account with account number " + getAccountNumber() + ": " + getBalance() + "\n";
 		} else if (this instanceof Loan) {
-			output = "Loan:" + getBalance() + "\n";
+			output = "Loan: " + getBalance() + "\n";
 		}
 		
 		for (int pass = 0; pass < transactions.size(); pass++) {

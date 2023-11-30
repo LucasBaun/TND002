@@ -57,10 +57,11 @@ public class Bank {
 				result += searchAccount(arg).otherAccount.toString();
 			}
 			if (!(theLoans.isEmpty())) {
-				for (Loan temp : theLoans) {					
+				for (Loan temp : theLoans) {	
+					if(temp.getCustomer().equals(arg)) {
 					double loan = temp.getBalance();					
 					result += temp.toString();
-										
+					}
 				}				
 			}
 			return result;
@@ -87,28 +88,24 @@ public class Bank {
 	}
 	
 	public void cashPayment(String arg1, double arg2) {
-		double temp = 0;
-		double tottemp = 0;
-		//CurrentAccount name = searchAccount(arg1);
 		
-		for (int pass = 0; pass < theLoans.size(); ++pass) {
+		for (int pass = 0; pass < theLoans.size(); pass++) {
 			if (theLoans.get(pass).getCustomer().equals(arg1)) {
-				temp = theLoans.get(pass).payOff(arg2);
-				if (temp >= 0) {
-					theLoans.remove(pass);
-					tottemp = temp;
+				if (arg2 >= 0) {
+					arg2 = theLoans.get(pass).payOff(arg2);
+					if(arg2 >= 0) {
+						theLoans.remove(pass);
+						pass--;
+					}
 				}			
-				/*else {
-					searchAccount(arg1).receive("Cash payment", temp);
-					//break?
-				}*/
+
 			}
 		}
-		if (tottemp > 0) {
-			searchAccount(arg1).receive("Cash payment", tottemp);
+		if (arg2 > 0) {
+			searchAccount(arg1).receive("Cash payment", arg2);
 		}
 	}
-	
+
 	public void computeAnnualChange() {
 		for (Account a : theAccounts) {
 			a.annualChange();

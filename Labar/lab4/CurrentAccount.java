@@ -54,8 +54,10 @@ public class CurrentAccount extends Account {
 					temp = otherAccount.getBalance();
 					otherAccount.setBalance(0);
 					
+					if(temp != 0) {
 					this.transactions.add("From savings account: " + temp);
 					otherAccount.transactions.add("To current account: " + temp);
+					}
 					
 					temp = this.getBalance() + temp;
 					this.setBalance(temp);	
@@ -70,7 +72,7 @@ public class CurrentAccount extends Account {
 		if (arg1.equals("Cash payment")) {
 			output = "Cash payment: " + arg2;
 		} else {
-			output = "Received from account of " + arg1 + "; " + arg2;
+			output = "Received from account of " + arg1 + ": " + arg2;
 		}
 		this.transactions.add(output);
 	}	
@@ -85,14 +87,13 @@ public class CurrentAccount extends Account {
 		if (this.getBalance() < 0) {
 			if (this.getSavingsAccount() != null) {
 				savings(this.getBalance());
-				if (this.getBalance() < 0) {
-					temp = this.getBalance();
-					theBank.getLoan(this);
-					this.transactions.add("Covered by a Loan: " + Math.abs(temp));					
-					this.setBalance(0);
-				}
-				
-			}			
+			}	
+			if (this.getBalance() < 0) {
+				temp = this.getBalance();
+				theBank.getLoan(this);
+				this.transactions.add("Covered by a loan: " + Math.abs(temp));					
+				this.setBalance(0);
+			}
 		}
 		
 	}
