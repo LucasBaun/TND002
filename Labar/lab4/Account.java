@@ -1,4 +1,4 @@
-package lab3;
+package lab4;
 import java.util.ArrayList;
 
 public class Account {
@@ -29,11 +29,11 @@ public class Account {
 		otherAccount.otherAccount = this;
 	}
 	
-	public Account(CurrentAccount arg) {
-		otherAccount = arg;
-		balance = arg.getBalance();
-		thisAccountNumber = arg.getAccountNumber();
-		customer = arg.getCustomer();
+	public Account(CurrentAccount arg) {		
+		this.otherAccount = arg;
+		this.balance = arg.getBalance();
+		this.thisAccountNumber = arg.getAccountNumber();
+		this.customer = arg.getCustomer();
 	}
 	
 	public int getAccountNumber() {
@@ -63,19 +63,25 @@ public class Account {
 		else {
 			return null;
 		}
-	} 
+	}
 	
 	public void annualChange() {
 		if (this instanceof SavingAccount) {
-			balance *= 1.01;
-		} else if (this instanceof Loan) {
-			balance *= 1.05;
-		} else {
-			balance -= 10;
-			if (balance < 0) {
-				theBank.getLoan((CurrentAccount) this); //Antar att getLoan kommer senare?
-				balance = 0;
+			this.setBalance((this.balance*1.01));
+		}
+		else if (this instanceof Loan) {
+			this.setBalance(this.balance*1.05);
+		}
+		else if (this instanceof CurrentAccount) {
+			this.setBalance(this.balance - 10);
+			
+			double calc = (this.balance - 10);
+			if (calc < 0) {	
+				
+				theBank.getLoan((CurrentAccount) this);				
+				this.setBalance(0);
 			}
+			
 		}
 	}
 	
@@ -86,7 +92,7 @@ public class Account {
 		} else if (this instanceof CurrentAccount) {
 			output = "Current Account with account number " + getAccountNumber() + ": " + getBalance() + "\n";
 		} else if (this instanceof Loan) {
-			output = "Loan: " + getBalance(); //ska jag lägga in transaction här?
+			output = "Loan:" + getBalance() + "\n";
 		}
 		
 		for (int pass = 0; pass < transactions.size(); pass++) {
@@ -96,8 +102,6 @@ public class Account {
 		return output;
 		
 	}
-	
-	
 		
 	
 }

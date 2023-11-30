@@ -1,4 +1,4 @@
-package lab3;
+package lab4;
 
 public class CurrentAccount extends Account {
 
@@ -40,12 +40,12 @@ public class CurrentAccount extends Account {
 				
 			}
 			if(arg1 <= 0 ) {
-				if (arg1 <= otherAccount.getBalance()) {
+				if (-(arg1) <= otherAccount.getBalance()) {
 					temp = this.getBalance() - arg1;
 					this.setBalance(temp);
 					
-					this.transactions.add("From savings account: " + -(arg1));
-					otherAccount.transactions.add("To current account: " + -(arg1));
+					this.transactions.add("From savings account: " + Math.abs(arg1));
+					otherAccount.transactions.add("To current account: " + Math.abs(arg1));
 					
 					temp = otherAccount.getBalance() + arg1;
 					otherAccount.setBalance(temp);	
@@ -64,31 +64,38 @@ public class CurrentAccount extends Account {
 		}		
 	}
 	
-	public void send(double arg1, CurrentAccount arg2) {
-		transactions.add("Sent to account of " + arg2.getCustomer() + ": " + arg1);
-		setBalance(getBalance()- arg1);
-		arg2.receive(getCustomer(), arg1);
-		
-		if (getBalance() < 0) {
-			savings(getBalance());
-			if (getBalance() < 0) {
-				theBank.getLoan(this);
-				transactions.add("Covered by loan: " ); //followed by the amount of money you got from the loan to get balance to zero
-				setBalance(0);
-			}
+	public void receive(String arg1, double arg2) {
+		String output = "";
+		this.setBalance(this.getBalance() + arg2);
+		if (arg1.equals("Cash payment")) {
+			output = "Cash payment: " + arg2;
+		} else {
+			output = "Received from account of " + arg1 + "; " + arg2;
 		}
+		this.transactions.add(output);
+	}	
+	
+	public void send(double arg1, CurrentAccount arg2) {		
+		double temp;
+		this.setBalance((getBalance() - arg1));
+		arg2.receive(this.getCustomer(), arg1);
 		
+		this.transactions.add("Sent to account of " + arg2.getCustomer() + ": " + arg1);
 		
+		if (this.getBalance() < 0) {
+			if (this.getSavingsAccount() != null) {
+				savings(this.getBalance());
+				if (this.getBalance() < 0) {
+					temp = this.getBalance();
+					theBank.getLoan(this);
+					this.transactions.add("Covered by a Loan: " + Math.abs(temp));					
+					this.setBalance(0);
+				}
+				
+			}			
+		}
 		
 	}
 	
-	public void receive(String arg1, double arg2) {
-		this.setBalance(this.getBalance() + arg2);
-		
-		if (arg1.equals("Cash payment")) {
-			transactions.add("Cash pay-ment: " + arg2);
-		} else {
-			transactions.add("Recieved from account of " + arg1 + ": " + arg2);
-		}
-	}
+	
 }

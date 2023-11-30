@@ -1,10 +1,9 @@
-package lab3;
+package lab4;
 import java.util.*;
 public class Bank {
 	public final String NAME;
 	private ArrayList<Account> theAccounts = new ArrayList<Account>();
 	private ArrayList<Loan> theLoans = new ArrayList<Loan>();
-	
 	
 	public Bank (String arg){
 		NAME = arg;
@@ -57,31 +56,73 @@ public class Bank {
 			if (!(searchAccount(arg).getSavingsAccount() == null)) {
 				result += searchAccount(arg).otherAccount.toString();
 			}
+			if (!(theLoans.isEmpty())) {
+				for (Loan temp : theLoans) {					
+					double loan = temp.getBalance();					
+					result += temp.toString();
+										
+				}				
+			}
 			return result;
-		}	
-		return "Person does not exist";  
-		/*
-		  	checkPerson(String) should now also list the loans. It should start the line with
-			”Loan: ” followed by the value of balance.
-		 */
-	}	
-	
-	
-	public void transfer(String arg1, String arg2, double arg3) {
-		CurrentAccount customer1 = searchAccount(arg1);
-		CurrentAccount customer2 = searchAccount(arg2);
-		
-		if(customer1 != null && customer2 != null) {
-			customer1.send(arg3, customer2);
-		}	
+		}
+
+		return "Person does not exist";  		
 	}
 	
+	public void transfer(String arg1, String arg2, double arg3) {
+		if (this.searchAccount(arg1) != null && this.searchAccount(arg2) != null) {
+			CurrentAccount temp = searchAccount(arg1);
+			CurrentAccount temp2 = searchAccount(arg2);
+			
+			//temp2.setBalance(temp2.getBalance() + arg3);			
+			//temp.send(temp.getBalance()-arg3, temp2);
+			temp.send(arg3, temp2);
+			
+		}
+	}
+	
+	public void getLoan(CurrentAccount arg) {		
+		Loan temp = new Loan(arg);
+		theLoans.add(temp);		
+	}
+	
+	public void cashPayment(String arg1, double arg2) {
+		double temp = 0;
+		double tottemp = 0;
+		//CurrentAccount name = searchAccount(arg1);
+		
+		for (int pass = 0; pass < theLoans.size(); ++pass) {
+			if (theLoans.get(pass).getCustomer().equals(arg1)) {
+				temp = theLoans.get(pass).payOff(arg2);
+				if (temp >= 0) {
+					theLoans.remove(pass);
+					tottemp = temp;
+				}			
+				/*else {
+					searchAccount(arg1).receive("Cash payment", temp);
+					//break?
+				}*/
+			}
+		}
+		if (tottemp > 0) {
+			searchAccount(arg1).receive("Cash payment", tottemp);
+		}
+	}
+	
+	public void computeAnnualChange() {
+		for (Account a : theAccounts) {
+			a.annualChange();
+		}
+		for (Loan l : theLoans) {
+			l.annualChange();
+		}
+	}
 	
 	public String toString () {
 		double current = 0;
 		double saving = 0;
-		double loan = 0;
-
+		double totalloan = 0;
+		
 		for (int pass = 0; pass < theAccounts.size(); ++pass) {
 			if(theAccounts.get(pass) instanceof CurrentAccount) {
 				current += theAccounts.get(pass).getBalance();
@@ -90,18 +131,21 @@ public class Bank {
 			if(theAccounts.get(pass) instanceof SavingAccount) {
 				saving += theAccounts.get(pass).getBalance();
 			}
+	
 			
 		}
-		
-		for (int i = 0; i < theLoans.size(); ++i) {
-			loan = loan + theLoans.get(i).getBalance();
+		if (theLoans.size() > 0) {			
+			for (Loan l : theLoans) {
+				totalloan += l.getBalance();
+			}
 		}
 		
 		
-		return "Bank:" + NAME + "\n" + "Accounts: " + theAccounts.size() + " Money in current / savings accounts and dept: "
-				+ current + " / " + saving + "/" + loan;
+		return "Bank:" + NAME + "\n" + "Accounts: " + theAccounts.size() + "\nLoans: " + theLoans.size() + "\n" 
+		+"Money in current / savings accounts and debt: " + current + " / " + saving + " / " + totalloan;
 		
 	}
 
 
 }
+ 
