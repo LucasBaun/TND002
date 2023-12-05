@@ -1,7 +1,5 @@
 package lab5;
 
 public interface CityProperty {
-	
-	public double computePropertyTax();
-
+	public abstract double computePropertyTax();
 }

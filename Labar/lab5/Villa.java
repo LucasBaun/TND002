@@ -1,9 +1,7 @@
 package lab5;
 
 public class Villa extends Building implements CityProperty{
-
-	private double electricity;
-	private double heating;
+	private double electricity, heating;
 	private int bedrooms;
 	
 	public Villa(String arg1, double arg2, int arg3, double arg4, double arg5, int arg6) {
@@ -15,13 +13,13 @@ public class Villa extends Building implements CityProperty{
 	
 	public int getBedrooms() {
 		return bedrooms;
-	}
-	
+	}	
 	public double maintenance() {
-		return (electricity + heating);
+		double sum = electricity + heating;
+		return sum;
 	}
 	
 	public double computePropertyTax() {
-		return (20 * squareMeters + 100 * bedrooms);
+		return (20*squareMeters + 100*bedrooms);
 	}
 }
