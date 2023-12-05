@@ -27,12 +27,12 @@ public class Lab5 {
 		System.out.println(theEstateAgent);
 		
 		//Sorting cottages
-		System.out.println(theEstateAgent.sort(EstateAgent.COTTAGES));
-		System.out.println(theEstateAgent);
+//		System.out.println(theEstateAgent.sort(EstateAgent.COTTAGES));
+//		System.out.println(theEstateAgent);
 		
 		// Sorting city buildings
-		System.out.println(theEstateAgent.sort(EstateAgent.CITYBUILDINGS));
-		System.out.println(theEstateAgent);
+//		System.out.println(theEstateAgent.sort(EstateAgent.CITYBUILDINGS));
+//		System.out.println(theEstateAgent);
 	}
 
 }

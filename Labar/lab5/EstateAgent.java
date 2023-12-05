@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 
 
 public class EstateAgent {
@@ -36,10 +37,22 @@ public class EstateAgent {
 	}
 	
 	public String sort(int arg) throws IOException {
-		System.out.println("Sorting by price (1) or Area (2)?");
+		int temp = 0;
+		String input1;
+		String temp1;
 		String output = "";
-		int answer = input();
-		Building.selection = answer;
+		do {
+			try {
+				input1 = JOptionPane.showInputDialog("Sorting by price (1) or Area (2)?");
+				temp1 = input1;
+				temp = Integer.parseInt(temp1);
+			}
+			catch(NumberFormatException ierr) {
+				temp1 = "fail";
+			}
+		} while(temp1.equals("fail"));
+		
+		Building.selection = temp;
 		
 		if (arg == ALLBUILDINGS) {
 			
@@ -53,25 +66,25 @@ public class EstateAgent {
 			
 		} else if(arg == CITYBUILDINGS) {
 						
-			ArrayList<Building> temp = new ArrayList<Building>(); 
+			ArrayList<Building> tempis = new ArrayList<Building>(); 
 			
 			for(int pass = 0; pass < theCityBuildings.size(); ++pass) {
-				temp.add((Building) theCityBuildings.get(pass)); 
+				tempis.add((Building) theCityBuildings.get(pass)); 
 			}
 			
-			Collections.sort(temp);
+			Collections.sort(tempis);
 			theCityBuildings.clear();
 			
-			for(int pass = 0; pass < temp.size(); ++pass) {
-				theCityBuildings.add((CityProperty) temp.get(pass));
+			for(int pass = 0; pass < tempis.size(); ++pass) {
+				theCityBuildings.add((CityProperty) tempis.get(pass));
 			}
 
 			updateLists(CITYBUILDINGS);
 		}
 		
-		if (answer == 1) {
+		if (temp == 1) {
 			output = "Sorted by price";
-		} else if (answer == 2) {
+		} else if (temp == 2) {
 			output = "Sorted by area";
 		} else {
 			output = "Not sorted";
