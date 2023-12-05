@@ -1,5 +1,8 @@
 package lab5;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class EstateAgent {
@@ -29,7 +32,13 @@ public class EstateAgent {
 	}
 	
 	public String sort(int arg) {
-		
+		System.out.println("Sorting by price (1) or Area (2)?");
+	}
+	
+	public static int input() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));	//Creates a bufferreader called reader that reads the inputs from person to an String
+		int arg = Integer.parseInt(reader.readLine());		//creates an arg from the input and changes the String from the bufferreader to an integer
+		return arg;			//returns the int from where it was called from
 	}
 
 }
