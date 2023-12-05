@@ -8,9 +8,9 @@ import java.util.Collections;
 
 
 public class EstateAgent {
-	public final int ALLBUILDINGS = 1; 
-	public final int CITYBUILDINGS = 2;
-	public final int COTTAGES = 3;
+	public static final int ALLBUILDINGS = 1; 
+	public static final int CITYBUILDINGS = 2;
+	public static final int COTTAGES = 3;
 	public String NAME;
 	
 	private ArrayList<Building> theBuildings = new ArrayList<Building>();
@@ -25,9 +25,11 @@ public class EstateAgent {
 		theBuildings.add(arg);
 		String output = "";
 		if (arg instanceof CityProperty) {
+			theCityBuildings.add((CityProperty)arg);
 			output = "Added city building";
 		}
 		else if (arg instanceof Cottage) {
+			theCottages.add((Cottage)arg);
 			output = "Added cottage";
 		}
 		return output;
@@ -126,6 +128,24 @@ public class EstateAgent {
 			}
 			
 		}
+	}
+	
+	public String toString() {
+		String allbuilding = "";
+		String allcott = "";
+		String allcity = "";
+		String tot = "";
+		for(int pass = 0; pass < theBuildings.size(); ++pass) {
+			allbuilding += theBuildings.get(pass).toString();
+		}
+		for(int lucas = 0; lucas < theCottages.size(); ++lucas) {
+			allcott += theCottages.get(lucas).toString()+"\n";
+		}
+		for(int linus = 0; linus < theCityBuildings.size(); ++linus) {
+			allcity += theCityBuildings.get(linus).toString() + "\n";
+		}
+		tot = "Estate agent: " + NAME + "\nAll buildings\n" + allbuilding + "\nCottages:\n" + allcott + "\nVillas and apartments:\n" + allcity;
+		return tot;
 	}
 
 }
