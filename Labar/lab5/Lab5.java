@@ -7,10 +7,10 @@ public class Lab5 {
 		//Diagnostics for buildings
 		Cottage myCottage = new Cottage("Vildmarkvägen 1", 850000.0, 100, 100.0);
 		System.out.println(myCottage);
-		//Apartment myApartment = new Apartment("Kungsgatan 7", 2500000.0, 115, 6400.0, 3);
-		//System.out.println(myApartment);
-		//Villa myVilla = new Villa("Villavägen 13", 6700000.0, 180, 2000.0, 1500.0, 4);
-		//System.out.println(myVilla);
+		Apartment myApartment = new Apartment("Kungsgatan 7", 2500000.0, 115, 6400.0, 3);
+		System.out.println(myApartment);
+		Villa myVilla = new Villa("Villavägen 13", 6700000.0, 180, 2000.0, 1500.0, 4);
+		System.out.println(myVilla);
 		
 		// Diagnostics for the estate agent
 		//EstateAgent theEstateAgent = new EstateAgent("Watson Property");
