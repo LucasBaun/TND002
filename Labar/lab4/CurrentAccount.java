@@ -66,6 +66,14 @@ public class CurrentAccount extends Account {
 		}		
 	}
 	
+	
+	/*
+	 receive används för att ta emot pengar på det nuvarande lönekontot.
+	 
+	 Metoden ökar saldot med det givna beloppet (arg2).
+	 
+	 Beroende på transaktionstypen skapas en lämplig textsträng (output) och läggs till i en lista över transaktioner (transactions).
+	 */
 	public void receive(String arg1, double arg2) {
 		String output = "";
 		this.setBalance(this.getBalance() + arg2);
@@ -77,6 +85,17 @@ public class CurrentAccount extends Account {
 		this.transactions.add(output);
 	}	
 	
+	/*
+	 send används för att skicka pengar från det nuvarande lönekontot till ett annat lönekonto (arg2).
+	 
+	 Metoden minskar saldot på det nuvarande lönekontot med det givna beloppet (arg1).
+	 
+	 Sedan används arg2 för att kalla på receive-metoden på det andra lönekontot för att överföra pengarna dit.
+	 
+	 Transaktionen registreras i listan över transaktioner.
+	 
+	 Om saldot på det nuvarande lönekontot blir negativt, försöker den täcka det genom att använda sparande och ansöka om ett lån från banken (theBank)
+	 */
 	public void send(double arg1, CurrentAccount arg2) {		
 		double temp;
 		this.setBalance((getBalance() - arg1));

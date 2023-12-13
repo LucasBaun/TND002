@@ -65,6 +65,16 @@ public class Account {
 		}
 	}
 	
+	/*
+	Om kontot är en instans av SavingAccount, ökar saldot med 1%.
+	Om kontot är en instans av Loan, ökar saldot med 5%.
+	
+	Om kontot är en instans av CurrentAccount, minskar saldot med 10.
+	Om det nya saldot blir mindre än noll, betyder det att kontot har gått under noll och då:
+		theBank.getLoan((CurrentAccount) this) anropas för att hämta ett lån från banken (antar att theBank är en instans av en bankklass).
+		Saldot på kontot sätts till noll.
+	 
+	 */
 	public void annualChange() {
 		if (this instanceof SavingAccount) {
 			this.setBalance((this.balance*1.01));

@@ -70,6 +70,18 @@ public class Bank {
 		return "Person does not exist";  		
 	}
 	
+	/*
+	 transfer-metoden överför en viss summa (arg3) från ett lönekonto med namn arg1 till ett annat lönekonto med namn arg2.
+	 
+	 Först kontrollerar metoden om båda kontona finns genom att anropa searchAccount-metoden för varje konto och kolla om resultatet är null.
+	 
+	 Om båda kontona finns, hämtar metoden referenser till dessa konton genom att använda searchAccount
+	 och tilldelar dem till temporära variabler temp och temp2.
+	 
+	 Sedan anropar metoden send på det första lönekontot (temp) och skickar summan arg3 till det andra lönekontot (temp2).
+	 	Detta antyder att det finns en metod send i CurrentAccount-klassen som används för att överföra pengar mellan två lönekonton.
+	 
+	 */
 	public void transfer(String arg1, String arg2, double arg3) {
 		if (this.searchAccount(arg1) != null && this.searchAccount(arg2) != null) {
 			CurrentAccount temp = searchAccount(arg1);
@@ -82,11 +94,23 @@ public class Bank {
 		}
 	}
 	
+	//Metoden skapar en ny instans av Loan med ett CurrentAccount-objekt som argument och lägger till lånet i en lista av lån (theLoans).
 	public void getLoan(CurrentAccount arg) {		
 		Loan temp = new Loan(arg);
 		theLoans.add(temp);		
 	}
 	
+	
+	/*
+	 Metoden söker efter ett lån i theLoans-listan baserat på kundens namn (arg1).
+	 
+	 Om betalningsbeloppet (arg2) är större än eller lika med noll, betalar den av en del av lånet med payOff-metoden från Loan-klassen.
+	 
+	 Om lånet nu är helt betalt, tas det bort från listan.
+	 
+	 Om det finns överbliven betalning (arg2 > 0), anropas receive-metoden på det konto 
+	 som matchar kundens namn (arg1) för att registrera en "Cash payment" på kontot.
+	 */
 	public void cashPayment(String arg1, double arg2) {
 		
 		for (int pass = 0; pass < theLoans.size(); pass++) {
@@ -106,6 +130,7 @@ public class Bank {
 		}
 	}
 
+	//Metoden loopar genom alla konton (theAccounts) och alla lån
 	public void computeAnnualChange() {
 		for (Account a : theAccounts) {
 			a.annualChange();
