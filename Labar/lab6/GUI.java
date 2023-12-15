@@ -125,6 +125,7 @@ public class GUI extends JFrame implements ActionListener {
 			}		
 			
 		}
+//	-----------------------------------------------------------------------------------------------------	
 		if (ae.getSource() == sPhonebook) { //When pressing Save phone book
 			doublePress = false; //Reset addPerson booleon
 			temp = top.getText();			
@@ -137,7 +138,7 @@ public class GUI extends JFrame implements ActionListener {
 				middle.setText(temp);	
 			}			
 		}
-		
+//	-----------------------------------------------------------------------------------------------------	
 		if (ae.getSource() == search) {	//When pressing Search button
 			doublePress = false; //Reset		
 			lucas.clear(); //Reset
@@ -148,7 +149,7 @@ public class GUI extends JFrame implements ActionListener {
 			if (lucas.isEmpty()) {
 				bottom.setText("Provide a name or number");
 				middle.setText("");
-			} else if (lucas.size() == 1) { //If search method only found one display and don't turn on nextName
+			} else if (lucas.size() == 1) { //If search method only found one display then don't turn on nextName
 					middle.setText(lucas.get(0).getFullName());
 					bottom.setText(Integer.toString(lucas.get(0).getPhoneNumber()));
 			}
@@ -158,6 +159,7 @@ public class GUI extends JFrame implements ActionListener {
 				bottom.setText(Integer.toString(lucas.get(0).getPhoneNumber()));
 			}		
 		}	
+//	-----------------------------------------------------------------------------------------------------	
 		if (ae.getSource() == nextName) { //When pressing nextName
 			if (counter >= lucas.size() || lucas.size() == 1) { //If Counter is bigger than the persons found
 				nextName.setEnabled(false); //then disable button otherwise array out of bounds exception
@@ -172,6 +174,7 @@ public class GUI extends JFrame implements ActionListener {
 				}
 			}	
 		}
+//	-----------------------------------------------------------------------------------------------------	
 		if (ae.getSource() == deletePerson) {
 			doublePress = false;
 			try {
@@ -187,7 +190,7 @@ public class GUI extends JFrame implements ActionListener {
 			temp = middle.getText() + " " + bottom.getText();
 			
 		}
-		
+//	-----------------------------------------------------------------------------------------------------	
 		if (ae.getSource() == addPerson) {
 			if (!doublePress) {
 				top.setText("Type in name and number");
